@@ -14,15 +14,16 @@ public class MyServlet2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		// obtener valores de parámetros de la solicitud
+		String name = request.getParameter("name");
 
-		// send HTML page to client
-		out.println("<html>");
-		out.println("<head><title>Ejemplo HTML desde Servlet</title></head>");
-		out.println("<body>");
-		out.println(String.format("<h1>Bienvenid@ %s</h1>",request.getParameter("name")));
-		out.println("</body></html>");
+		// estos son atributos unicos de la solicitud, reutilizables
+		// Para obternerlo ->. getAttribute()
+		request.setAttribute("nombre",name);
+		request.setAttribute("message","ok");
+
+		request.getRequestDispatcher("/WEB-INF/saludo.jsp").forward(request,response);
+
 	}
 
 }
